@@ -1,0 +1,30 @@
+# Create your views here.
+from django.http import HttpResponse
+from django.template import Context, loader, RequestContext
+import forms
+
+# user homepage
+def home(request):
+	template = loader.get_template('users/home.html')
+	return HttpResponse(template)
+
+# registration page
+def register(request):
+
+	if request.method == 'POST':
+		form = RegisterForm(request.POST)
+		if form.is_valid():
+			username = form.cleaned_data['registerUsername']
+			password = form.cleaned_data['registerPassword']
+			email = form.cleaned_data['registerEmail']
+
+			print username
+			print password
+			print email	
+
+	template = loader.get_template('users/register.html')
+	context = RequestContext(request)
+	return HttpResponse(template.render(context))
+	
+
+	

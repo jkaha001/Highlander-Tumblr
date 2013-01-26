@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>{% block title %} Highlander Tumblr {% endblock %}</title>
+		{% block extra_css %}
+		{% endblock %}	
+		<link rel="stylesheet" href="{{ STATIC_PREFIX }}css/bootstrap.css" />
+		<link rel="stylesheet" href="{{ STATIC_PREFIX }}css/bootstrap-responsive.css" />
+	</head>
+
+	<body>
+		{% block content %}
+		{% endblock %}
+		<script src="{{ STATIC_PREFIX }}js/bootstrap.js"></script>
+		{% block extra_js %}
+		{% endblock %}
+	</body>
+</html>
+	
