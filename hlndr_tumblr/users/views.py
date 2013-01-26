@@ -1,11 +1,11 @@
 # Create your views here.
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader, RequestContext
 from django import forms
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from users.models import User
-from users.forms import RegisterForm
+from users.forms import RegisterForm, LoginForm
 
 
 # user homepage
@@ -15,6 +15,28 @@ def home(request, username):
 	context = Context({
 		'username': user.username,
 	})
+	return HttpResponse(template.render(context))
+
+# login page
+def login(request):
+
+	if request.method == 'POST':
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+		
+			# hacky 404 will change	
+			try:
+				user = User.objects.get(username=username)
+			except User.DoesNotExist:
+				raise Http404
+
+			if password == user.password:
+				return HttpResponseRedirect('/' + user.username + '/')	
+
+	template = loader.get_template('users/login.html')
+	context = RequestContext(request)
 	return HttpResponse(template.render(context))
 
 # registration page
