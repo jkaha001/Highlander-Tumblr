@@ -1,0 +1,17 @@
+{% extends "dashboard/templates/dashboard.html" %}
+{% comment %}
+ 
+Main page of the dashboard.
+ 
+{% endcomment %}
+ 
+{% block title %}
+Dashboard
+{% endblock %}
+ 
+{% block content %}
+    <section>
+        <h2>Welcome, {{ user.username }}</h2>
+        <p>This is where all the stuff goes.</p>
+    </section>
+{% endblock %}
