@@ -1,11 +1,19 @@
 from django import forms
 
 class RegisterForm(forms.Form):
-	registerUsername = forms.CharField(max_length=30)
-	registerPassword = forms.CharField(max_length=200)
-	reEnterPassword = forms.CharField(max_length=200)
-	registerEmail = forms.CharField(max_length=200)
+	username = forms.RegexField(regex=r'^[\w.@+-]+$',
+								max_length=30,
+								label="username",
+								error_messages={
+									'invalid':"This value may contain only letters, numbers and @/./+/-/_ characters."})
+	password1 = forms.CharField()
+	password2 = forms.CharField()
+	email = forms.EmailField()
 	
 class LoginForm(forms.Form):
-	username = forms.CharField(max_length=30)
-	password = forms.CharField(max_length=200)	
+	username = forms.RegexField(regex=r'^[\w.@+-]+$',
+								max_length=30,
+								label="username",
+								error_messages={
+									'invalid':"That username doesn't exist"})
+	password = forms.CharField()

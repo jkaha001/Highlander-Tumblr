@@ -2,6 +2,7 @@ from django.db import models
 
 from datetime import datetime
 
+"""
 # Create your models here.
 class User(models.Model):
 	username = models.CharField(max_length=200, unique=True)
@@ -11,4 +12,4 @@ class User(models.Model):
 	
 	def __unicode__(self):
 		return self.username
-			
+		"""	
