@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% comment %}
+ 
+Main template for all dashboard pages.
+ 
+{% endcomment %}
+ 
+{% block head %}
+    <title>Highlander-Tumblr | {% block title %}{% endblock %}</title>
+{% endblock %}
+ 
+{% block body %}
+    <header>
+        <h1>Highlander-Tumblr | {{ user.username }}'s Dashboard</h1>
+    </header>
+ 
+    <section>
+        <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/logout/">logout</a></li>
+        </ul>
+    </section>
+ 
+    {% block content %}{% endblock %}
+ 
+    <footer>
+        <span>&copy; 2013, Highlander-Tumblr</span>
+    </footer>
+{% endblock %}
