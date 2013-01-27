@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} Highlander Tumblr - Login {% endblock %}
+
+{% block extra_css %}
+<style type="text/css">
+	.form-signin {
+		max-width: 300px;
+		padding: 20px 20px 20px;
+		margin: 225px auto;
+		background-color: #eee;
+	}
+
+	.form-signin input[type="text"],
+	.form-signin input[type="password"] {
+		font-size: 15px;
+		height: auto;
+		margin-bottom: 15px;
+		padding: 7px 9px;
+	}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<form action="." method='POST' class="form-signin">
+		{% csrf_token %}
+		<h2> Log in </h2>
+		<h5> {{ invalid }}</h5>
+		<input type="text" value="{{ form.username.value }}" name="username" id="id_username" class="input-block-level" placeholder="Username">
+		<input type="password" name="password" id="id_password" class="input-block-level" placeholder="Password">
+		<button class="btn btn-large btn-primary" type="submit"> Log in </button>
+		<a href="/register/" class="btn btn-large btn-primary"> Register </a>
+	</form>
+</div>
+	
+{% endblock %}
+
