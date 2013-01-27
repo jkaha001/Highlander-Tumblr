@@ -12,9 +12,10 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	# URL to avatar image hosted
 	avatar = models.CharField(max_length=200)
-	nickname = models.CharField(max_length=30)
-	gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+	nickname = models.CharField(max_length=30, blank=True)
+	gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
 	birthday = models.DateField()
+	interests = models.CharField(max_length=300, blank=True)
 	
 	def __unicode__(self):
 		return user.username

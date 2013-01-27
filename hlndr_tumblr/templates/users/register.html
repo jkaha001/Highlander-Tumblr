@@ -27,43 +27,13 @@
 		<h2> Registration Form </h2>
 		<h5> {{ invalid }} </h5>
 		<input type="text" class="input-block-level" name="username" id="id_username" value="{{ form.username.value }}" placeholder="Username">
+		<input type="text" class="input-block-level" name="nickname" id="id_nickname" value="{{ form.nickname.value }}" placeholder="Nickname (optional)">
 		<input type="password" class="input-block-level" name="password1" value="{{ form.password1.value }}" id="id_password1" placeholder="Password">
 		<input type="password" class="input-block-level" name="password2" value="{{ form.password2.value }}" id="id_password2" placeholder="Password (again)">
 		<input type="text" class="input-block-level"  name="email" value="{{ form.email.value }}" id="id_email" placeholder="Email">
+		<input type="text" class="input-block-level" name="birthday" value="{{ form.email.birthday }}" id="id_birthday" placeholder="Birthday (MM/DD/YYYY)">
+		<textarea rows="3" name="interests" id="id_interests" placeholder="Interests (optional)"></textarea>
 		<button type="submit" class="btn btn-large btn-primary"> Submit </button>
-
-		<!--
-		<div class="control-group">
-			<div class="controls">
-				<input type="text" name="registerUsername" id="id_registerUsername" value="" placeholder="Username">
-			</div>
-		</div>
-
-		<div class="control-group">
-			<div class="controls">
-				<input type="password" name="registerPassword" id="id_registerPassword" placeholder="Password">
-			</div>
-		</div>
-
-		<div class="control-group">
-			<div class="controls">
-				<input type="text" name="reEnterPassword" id="id_reEnterPassword" placeholder="Password (again)">
-			</div>
-		</div>
-
-		<div class="control-group">
-			<div class="controls">
-				<input type="text" name="registerEmail" id="id_registerEmail" placeholder="Email">
-			</div>
-		</div>
-
-		<div class="control-group">
-			<div class="controls">
-				<button type="submit" class="btn btn-large btn-primary"> Submit </button>
-			</div>
-		</div>
-
-		-->
 	</form>
 </div>
 {% endblock %}

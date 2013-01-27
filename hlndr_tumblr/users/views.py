@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 # from users.models import User
 from users.forms import RegisterForm, LoginForm
+from users.models import UserProfile
 
 # user homepage
 def home(request, username):
@@ -64,20 +65,37 @@ def register(request):
 										  {'form':form,
 										   'invalid':"Passwords mismatched"},
 										   context_instance=RequestContext(request))
-
+			
+			# Django User Data
 			username = form.cleaned_data['username']
-			email = form.cleaned_data['email']	
+			email = form.cleaned_data['email']
+			
+			# User Profile Data
+			birthday = form.cleaned_data['birthday']
+			nickname = form.cleaned_data['nickname']
+			gender = form.cleaned_data['gender']
+			interests = form.cleaned_data['interests']
+			
+			# Save User to database
 			newuser = User(username=username,email=email)
 			newuser.set_password(password)
-			newuser.creation_date = timezone.now()
 			newuser.save()
+
+			# save user profile to database
+			user = User.objects.get(username=username)
+			newUserProfile = UserProfile.objects.create(user=user,
+														birthday=birthday,
+														nickname=nickname,
+														gender=gender,
+														interests=interests)
+			newUserProfile.save()
 
 			return HttpResponseRedirect('/' + newuser.username + '/')
 		
 		else:
 			return render_to_response('users/register.html',
 									  {'form':form,
-									   'invalid':"All fields required"},
+									   'invalid':"Some required fields have not been filled"},
 									  context_instance=RequestContext(request))
 	else:
 		form = RegisterForm()
