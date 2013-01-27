@@ -4,6 +4,8 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+AUTH_PROFILE_MODULE = 'users.UserProfile'
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -124,7 +126,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-	'users'
+	'users',
+	'dashboard',
 )
 
 # A sample logging configuration. The only tangible logging

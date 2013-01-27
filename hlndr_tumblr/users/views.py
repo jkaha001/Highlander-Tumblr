@@ -1,9 +1,9 @@
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader, RequestContext
-from django import forms
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, render_to_response
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
 # from users.models import User
@@ -19,33 +19,36 @@ def home(request, username):
 	return HttpResponse(template.render(context))
 
 # login page
-def login(request):
+def log_in(request):
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if form.is_valid():
 			username = form.cleaned_data['username']
 			password = form.cleaned_data['password']
-	
-			# Validate fields	
-			try:
-				user = User.objects.get(username=username)
-			except User.DoesNotExist:
-				return render_to_response('users/login.html',
-										  {'form':form,
-										   'invalid':"User does not exist"},
-										   context_instance=RequestContext(request))
-
-			if password == user.password:
-				return HttpResponseRedirect('/' + user.username + '/')
+			
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				if user.is_active:
+					login(request, user)
+					return HttpResponseRedirect('/dashboard/')
+				else:
+					return render_to_response('users/login.html',
+											  {'form':form,
+											   'invalid':"Account disabled"},
+											  context_instace=RequestContext(request))
 			else:
 				return render_to_response('users/login.html',
 										  {'form':form,
-										   'invalid':"Incorrect Password"},
-										   context_instance=RequestContext(request))
+										   'invalid':"Invalid username or password"},
+										  context_instance=RequestContext(request))
 
 	template = loader.get_template('users/login.html')
 	context = RequestContext(request)
 	return HttpResponse(template.render(context))
+
+def log_out(request):
+	logout(request)
+	return HttpResponseRedirect('/')
 
 # registration page
 def register(request):
@@ -64,7 +67,8 @@ def register(request):
 
 			username = form.cleaned_data['username']
 			email = form.cleaned_data['email']	
-			newuser = User(username=username,password=password,email=email)
+			newuser = User(username=username,email=email)
+			newuser.set_password(password)
 			newuser.creation_date = timezone.now()
 			newuser.save()
 

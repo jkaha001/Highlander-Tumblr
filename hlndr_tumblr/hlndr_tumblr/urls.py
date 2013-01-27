@@ -18,7 +18,9 @@ urlpatterns = patterns('',
 	# home page 
 	url(r'^$', 'hlndr_tumblr.views.home', name='home'),
 	url(r'^register/$', 'users.views.register', name='register'),
-	url(r'^login/$', 'users.views.login', name='login'),
+	url(r'^login/$', 'users.views.log_in', name='log_in'),
+	url(r'^logout/$', 'users.views.log_out', name='log_out'),
+	url(r'^dashboard/$', 'dashboard.views.dashboard', name='dashboard'),
 	url(r'^(?P<username>\w+)/$', 'users.views.home', name='users.home')
 
 )

@@ -9,13 +9,36 @@
 		<title>{% block title %} Highlander Tumblr {% endblock %}</title>
 		{% block extra_css %}
 		{% endblock %}	
+		<!-- #2D6CC0 UCR Blue -->
+		<!-- #F1AB00 UCR Gold -->
+		
+		<style type="text/css">
+
+		#page-container {
+			background-color: #2D6CC0;
+		}
+		
+		body {
+			height: 100%;
+			width: 100%;
+			position: absolute;
+		}
+
+		.container-fluid,
+		.row-fluid { height: inherit; }
+	
+		</style>
 		<link rel="stylesheet" href="{{ STATIC_PREFIX }}css/bootstrap.css" />
 		<link rel="stylesheet" href="{{ STATIC_PREFIX }}css/bootstrap-responsive.css" />
 	</head>
 
 	<body>
+		<div class="container-fluid" id="page-container">
+			<div class="row-fluid">
 		{% block content %}
 		{% endblock %}
+			</div>
+		</div>
 		<script src="{{ STATIC_PREFIX }}js/bootstrap.js"></script>
 		{% block extra_js %}
 		{% endblock %}

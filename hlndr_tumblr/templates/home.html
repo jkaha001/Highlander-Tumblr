@@ -2,22 +2,26 @@
 
 {% block title %} Highlander Tumblr! {% endblock %}
 
+{% block extra_css %}
+<style type="text/css">
+
+</style>
+
+{% endblock %}
+
 {% block content %}
 	<div class="container">
-		<div class="row">
-			<div class="span10">
+		<div class="row-fluid">
+			<div class="span12">
 				<!--body -->
 				<div class="hero-unit">
+					<!-- sidebar -->
 					<h1> Highlander Tumblr! </h1>
+					<h5 id="topbar">
+						<a class="btn btn-primary" href="login"> Login </a>
+						<a class="btn btn-primary" href="register"> Signup </a>
+					</h5>
 				</div>
-
-			</div>
-			<div class="span2">
-				<!-- sidebar -->
-				<p>
-					<a class="btn btn-primary" href="login"> Login </a>
-					<a class="btn btn-primary" href="register"> Signup </a>
-				</p>
 			</div>
 		</div>
 	</div>
