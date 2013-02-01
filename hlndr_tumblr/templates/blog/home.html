@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ author.username }}'s Blog {% endblock %}
+
+{% block extra_css %}
+
+<style type="text/css">
+	#mainbody {
+		background-color:#eee;	
+	}
+
+	#blogname {
+		padding-left:20px;			
+	}	
+
+	.fill {
+		min-height: 100%;
+	}
+
+	#blogcontent {
+		padding-left:20px;
+	}
+
+	#blogcontainer {
+		background-color:#F1AB00;
+	}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container fill" id="mainbody">
+	<div class="row-fluid">
+		<div class="span10">
+			<h2 id="blogname"> {{author.username}}'s blog </h2>
+			<div class="container" id="blogcontainer">
+				{% for post in posts %}
+					<h3 id="blogcontent">
+						{{ post.title }}
+					</h3>
+					<h5 id="blogcontent">
+						{{ post.post_date }}
+					</h5>
+					<h6 id="blogcontent">
+						{{ post.text|linebreaksbr }}
+					</h6>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="span2">
+		</div>
+	</div>
+</div>
+
+{% endblock %}

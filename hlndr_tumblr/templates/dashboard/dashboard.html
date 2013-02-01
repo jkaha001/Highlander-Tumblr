@@ -11,7 +11,11 @@
 
 	#blogname {
 		padding-left:20px;			
-	}	
+	}
+
+	#sidebar {
+		padding-top:20px;
+	}
 
 	.fill {
 		min-height: 100%;
@@ -21,18 +25,24 @@
 {% endblock %}
 
 {% block content %}
-<!--
-<p class="lead"> This is {{ user.username }}'s dashboard </p>
-<a href="/logout/" class="btn btn-large btn-primary"> Logout </button>
--->
 
 <div class="container fill" id="mainbody">
 	<div class="row-fluid">
 		<div class="span10">
-			<h2 id="blogname"> {{user.username}}'s blog </h2>
+			<h2 id="blogname"> Dashboard </h2>
+			<div class="span5">
+				<a href="/new/text" class="btn btn-block btn-primary"> Text Post </a>
+				<a href="/new/text" class="btn btn-block btn-primary"> Text Post </a>
+				<a href="/new/text" class="btn btn-block btn-primary"> Text Post </a>
+				<a href="/new/text" class="btn btn-block btn-primary"> Text Post </a>
+				<a href="/new/text" class="btn btn-block btn-primary"> Text Post </a>
+			</div>
 		</div>
-		<div class="span2">
+		<div class="span2" id="sidebar">
 			<a href="/logout/" class="btn btn-primary"> Logout </a>
+		</div>
+		<div class="span2" id="sidebar">
+			<a href="/{{ user.username }}/" class="btn btn-primary">Blog</a>
 		</div>
 	</div>
 </div>
