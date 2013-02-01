@@ -21,6 +21,6 @@ urlpatterns = patterns('',
 	url(r'^login/$', 'users.views.log_in', name='log_in'),
 	url(r'^logout/$', 'users.views.log_out', name='log_out'),
 	url(r'^dashboard/$', 'dashboard.views.dashboard', name='dashboard'),
-	url(r'^(?P<username>\w+)/$', 'users.views.home', name='users.home')
-
+	url(r'^new/', include('blog.urls')),
+	url(r'^(?P<username>\w+)/$', 'blog.views.home', name='users.home'),
 )

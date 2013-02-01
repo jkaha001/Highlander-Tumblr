@@ -10,6 +10,9 @@ from django.contrib.auth.models import User
 from users.forms import RegisterForm, LoginForm
 from users.models import UserProfile
 
+"""
+blog pages moved to blog app
+
 # user homepage
 def home(request, username):
 	user = get_object_or_404(User, username=username)
@@ -18,6 +21,7 @@ def home(request, username):
 		'username': user.username,
 	})
 	return HttpResponse(template.render(context))
+"""
 
 # login page
 def log_in(request):

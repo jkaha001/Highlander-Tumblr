@@ -1,6 +1,9 @@
 from django import forms
 
-class PostForm(ModelForm):
+class PostForm(forms.Form):
 	title = forms.CharField(max_length=100)
-	text = forms.TextField()
-	tags = forms.TextField(required=False)
+	text = forms.CharField()
+
+class PhotoForm(forms.Form):
+	title = forms.CharField(max_length=100)
+	photo = forms.FileField()
