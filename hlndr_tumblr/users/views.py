@@ -90,7 +90,7 @@ def register(request):
 														interests=interests)
 			newUserProfile.save()
 
-			return HttpResponseRedirect('/' + newuser.username + '/')
+			return HttpResponseRedirect('/login/')
 		
 		else:
 			return render_to_response('users/register.html',
