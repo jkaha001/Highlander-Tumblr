@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} New Photo Post {% endblock %}
+
+{% block extra_css %}
+	<style type="text/css">
+	
+	.form-horizontal {
+		background-color:#eee;
+		padding: 20px 20px;
+		margin: 255px auto;
+		max-width: 500px;
+	}
+
+	</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<form action="/new/photo/" method="POST" enctype="multipart/form-data" class="form-horizontal">
+		{% csrf_token %}
+		<h2> New Post </h2>
+		<h5> {{ form.non_field_errors }}</h5>
+		<div>
+			{{ form.photo }}
+			<textarea rows="10" class="field span12" name="caption" id="id_caption" value="{{ form.caption.value }}"></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary"> Post </button>
+	</form>
+</div>
+
+{% endblock %}

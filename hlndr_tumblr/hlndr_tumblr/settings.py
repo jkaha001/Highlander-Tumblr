@@ -1,6 +1,12 @@
 # Django settings for hlndr_tumblr project.
 import os
 
+AWS_SECRET_ACCESS_KEY = '+5mZMoNGYTso+RmK9H39MzihfUT8qeA3BZfe5fJ+'
+AWS_ACCESS_KEY_ID = 'AKIAIV3HV6NUFO3UD4XQ'
+AWS_STORAGE_BUCKET_NAME = 'highlander-tumblr-test-bucket'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -129,6 +135,7 @@ INSTALLED_APPS = (
 	'users',
 	'dashboard',
 	'blog',
+	'storages',
 )
 
 # A sample logging configuration. The only tangible logging

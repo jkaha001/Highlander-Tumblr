@@ -5,5 +5,5 @@ class PostForm(forms.Form):
 	text = forms.CharField()
 
 class PhotoForm(forms.Form):
-	title = forms.CharField(max_length=100)
 	photo = forms.FileField()
+	caption = forms.CharField(required=False)

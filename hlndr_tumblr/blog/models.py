@@ -18,6 +18,17 @@ class Post(models.Model):
 	def __unicode__(self):
 		return self.title
 
+class PhotoPost(models.Model):
+	filename = models.CharField(max_length=100)
+	url = models.URLField()
+	caption = models.TextField()
+	post_date = models.DateTimeField(auto_now_add=True)
+	author = models.ForeignKey(User)
+
+	def __unicode__(self):
+		return self.filename
+
+
 """
 class Hashtag(models.Model):
 	name = models.CharField(max_length=50)
