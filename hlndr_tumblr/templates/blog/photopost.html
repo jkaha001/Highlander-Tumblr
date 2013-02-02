@@ -20,7 +20,7 @@
 	<form action="/new/photo/" method="POST" enctype="multipart/form-data" class="form-horizontal">
 		{% csrf_token %}
 		<h2> New Post </h2>
-		<h5> {{ form.non_field_errors }}</h5>
+		<h5> {{ invalid }}</h5>
 		<div>
 			{{ form.photo }}
 			<textarea rows="10" class="field span12" name="caption" id="id_caption" value="{{ form.caption.value }}"></textarea>

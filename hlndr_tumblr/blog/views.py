@@ -7,12 +7,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.files.storage import default_storage
 
-from blog.models import Post
+from blog.models import Post, PhotoPost
 from blog.forms import PostForm, PhotoForm
 
 def home(request,username):
 	author = get_object_or_404(User,username=username)
-	posts = author.post_set.all().order_by('-post_date')
+	posts = list(author.post_set.all())
+	posts += list(author.photopost_set.all())
+
+	# sort from oldest to newest, then reverse to get latest
+	posts = reversed(sorted(posts, key=lambda post: post.post_date))
 	return render_to_response('blog/home.html',
 							  {'author':author,
 							   'posts':posts,},
@@ -44,20 +48,33 @@ def new_text_post(request):
 
 @login_required(login_url='login')
 def new_photo_post(request):
+	invalid = ""
 	if request.method == 'POST':
 		form = PhotoForm(request.POST, request.FILES)
 		if form.is_valid():
-			upload_to_s3(request.FILES['photo'],request.user)
+			file = request.FILES['photo']
+			caption = form.cleaned_data['caption']
+			post = PhotoPost.objects.create(filename=file.name,
+											url="",
+											caption=caption,
+											author=request.user)
+
+			filepath = "%s/image/%s/%s" % (request.user.username, str(post.id), file.name)
+			upload_to_s3(file, filepath)
+			post.url = "http://d1852nuusu2e8n.cloudfront.net/" + filepath
+			post.save()
 			return HttpResponseRedirect('/dashboard/')
+		else:
+			invalid = "No Photo Selected"
 	else:
 		form = PhotoForm()
 	return render_to_response('blog/photopost.html',
 							  {'form':form,
-							   'invalid':"No photo selected"},
+							   'invalid':invalid},
 							  context_instance=RequestContext(request))
 
-def upload_to_s3(file,user):
-	destination = default_storage.open('media/' + file.name, 'wb+')
+def upload_to_s3(file, filepath):
+	destination = default_storage.open(filepath, 'wb+')
 	for chunk in file.chunks():
 		destination.write(chunk)
 	destination.close()

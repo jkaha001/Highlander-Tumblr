@@ -37,15 +37,33 @@
 			<h2 id="blogname"> {{author.username}}'s blog </h2>
 			<div class="container" id="blogcontainer">
 				{% for post in posts %}
-					<h3 id="blogcontent">
-						{{ post.title }}
-					</h3>
-					<h5 id="blogcontent">
-						{{ post.post_date }}
-					</h5>
-					<h6 id="blogcontent">
-						{{ post.text|linebreaksbr }}
-					</h6>
+
+					{% if post.classname == "Post" %}
+						<div class="container-fluid" id="blogcontent">
+						<h3>
+							{{ post.title }}
+						</h3>
+						<h5>
+							{{ post.post_date }}
+						</h5>
+						<h6>
+							{{ post.text|linebreaksbr }}
+						</h6>
+						</div>
+
+					{% elif post.classname == "PhotoPost" %}
+						<div class="container-fluid" id="blogcontent">
+							<h5>
+								{{ post.post_date }}
+							</h5>
+							<img src="{{ post.url }}"></img>
+							<h6>
+								{{ post.caption|linebreaksbr }}
+							</h6>
+						</div>
+
+					{% endif %}
+
 				{% endfor %}
 			</div>
 		</div>

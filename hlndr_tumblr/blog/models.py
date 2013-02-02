@@ -18,6 +18,9 @@ class Post(models.Model):
 	def __unicode__(self):
 		return self.title
 
+	def classname(self):
+		return self.__class__.__name__
+
 class PhotoPost(models.Model):
 	filename = models.CharField(max_length=100)
 	url = models.URLField()
@@ -28,6 +31,8 @@ class PhotoPost(models.Model):
 	def __unicode__(self):
 		return self.filename
 
+	def classname(self):
+		return self.__class__.__name__
 
 """
 class Hashtag(models.Model):
