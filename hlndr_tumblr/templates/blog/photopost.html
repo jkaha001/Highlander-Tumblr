@@ -19,13 +19,17 @@
 <div class="container">
 	<form action="/new/photo/" method="POST" enctype="multipart/form-data" class="form-horizontal">
 		{% csrf_token %}
-		<h2> New Post </h2>
+		<h2> Make a photo post </h2>
 		<h5> {{ invalid }}</h5>
 		<div>
 			{{ form.photo }}
-			<textarea rows="10" class="field span12" name="caption" id="id_caption" value="{{ form.caption.value }}"></textarea>
+			{% if form.caption.value == None %}
+			<textarea rows="10" class="field span12" name="caption" id="id_caption" placeholder="Caption (optional)"></textarea>
+			{% else %}
+			<textarea rows="10" class="field span12" name="caption" id="id_caption" value="{{ form.caption.value }}" placeholder="Caption (optional)"></textarea>
+			{% endif %}
 		</div>
-		<button type="submit" class="btn btn-primary"> Post </button>
+		<button type="submit" class="btn btn-block btn-primary"> Post </button>
 	</form>
 </div>
 
