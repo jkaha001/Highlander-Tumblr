@@ -12,27 +12,27 @@ from blog.forms import TextForm, PhotoForm, VideoForm, AudioForm
 
 amazon_url = "https://s3-us-west-1.amazonaws.com/highlander-tumblr-test-bucket/"
 
-
+# Upload to s3 using filepath starting from bucket root
 def upload_to_s3(file, filepath):
 	destination = default_storage.open(filepath, 'wb+')
 	for chunk in file.chunks():
 		destination.write(chunk)
 	destination.close()
 
+# Delete from s3 using filepath starting from bucket root
 def delete_from_s3(filepath):
 	if default_storage.exists(filepath):
 		default_storage.delete(filepath)
 
+# Deletes post and remove from s3 if it is a media post
 def delete_post(post):
-#		filepath = post.url.replace(amazon_url,'')
-#		delete_from_s3(filepath)
-#		post.delete()
-
-def upload_to_s3(file, filepath):
-	destination = default_storage.open(filepath, 'wb+')
-	for chunk in file.chunks():
-		destination.write(chunk)
-	destination.close()
+	classname = post.classname()
+	if classname == "PhotoPost" or classname == "VideoPost" or classname == "AudioPost":
+		filepath = post.url.replace(amazon_url,'')
+		delete_from_s3(filepath)
+		post.delete()
+	else:
+		post.delete()
 
 #Gets every post type from a particular author and returns them in a list
 #Not garunteed to be sorted
@@ -43,6 +43,7 @@ def get_post_list_by_author(author):
 	audioposts = list(author.audiopost_set.all())
 	return textposts + photoposts + videoposts + audioposts
 
+# displays a users blog page if user exists
 def blogpage(request,username):
 	author = get_object_or_404(User,username=username)
 	posts = get_post_list_by_author(author)

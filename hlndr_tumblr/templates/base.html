@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 {% load static %}
 {% get_static_prefix as STATIC_PREFIX %}
 
@@ -37,7 +37,9 @@
 			<ul class="breadcrumb">
 				<li><a href="/login/">Login</a><span class="divider"></span></li>
 				<li><a href="/register/">Register</a><span class="divider"></span></li>
-				<li><a href="/dashboard/">Dashboard</a></li>
+				<li><a href="/dashboard/">Dashboard</a><span class="divider"></span></li>
+				{% block breadcrumbs %}
+				{% endblock %}
 			</ul>
 		
 			<div class="row-fluid">

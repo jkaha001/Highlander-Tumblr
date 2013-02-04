@@ -10,19 +10,20 @@
 	}
 
 	#blogname {
-		padding-left:20px;			
+		padding: 20px 20px;
 	}	
 
 	.fill {
 		min-height: 100%;
 	}
 
-	#blogcontent {
-		padding-left:20px;
+	#blogpost {
+		padding: 20px 20px;
+		background-color:#F1AB00;
 	}
 
 	#blogcontainer {
-		background-color:#F1AB00;
+		background-color:#EEE;
 	}
 
 </style>
@@ -32,14 +33,16 @@
 {% block content %}
 
 <div class="container fill" id="mainbody">
-	<div class="row-fluid">
-		<div class="span10">
-			<h2 id="blogname"> {{author.username}}'s blog </h2>
-			<div class="container" id="blogcontainer">
+	<div class="row-fluid" id="blogcontainer">
+		<div class="container span8">
+			<div></div>
+			<div class="well container-fluid span" id="blogname">
+				<h2> Untitled </h2>
+			</div>
 				{% for post in posts %}
 
 					{% if post.classname == "TextPost" %}
-						<div class="container-fluid" id="blogcontent">
+						<div class="well container-fluid span" id="blogpost">
 						<h3>
 							{{ post.title }}
 						</h3>
@@ -52,7 +55,7 @@
 						</div>
 
 					{% elif post.classname == "PhotoPost" %}
-						<div class="container-fluid" id="blogcontent">
+						<div class="well container-fluid span" id="blogpost">
 							<h5>
 								{{ post.post_date }}
 							</h5>
@@ -62,12 +65,42 @@
 							</h6>
 						</div>
 
+					{% elif post.classname == "VideoPost" %}
+						<div class="well container-fluid span" id="blogpost">
+						<h5> {{ post.post_date }} </h5>
+						<video width="640" height="360" controls>
+							<source src="{{ post.url }}" type="video/mp4">
+							<p> Could not play </p>
+						</video>
+						<h6> {{ post.description|linebreaksbr }}</h6>
+						</div>
+
+					{% elif post.classname == "AudioPost" %}
+						<div class="well container-fluid span" id="blogpost">
+						<h5> {{ post.post_date }} </h5>
+						<audio controls>
+							<source src="{{ post.url }}" type="audio/mpeg">
+							<p> Could not play </p>
+						</audio>
+						<h6> {{ post.description|linebreaksbr }}</h6>
+						</div>
+
 					{% endif %}
 
 				{% endfor %}
-			</div>
 		</div>
-		<div class="span2">
+		<div class="container span2">
+			<ul class="thumbnails">
+				<li class="span" style="padding:20px 20px 0px;">
+					<a href="/{{ author.username }}/" class="thumbnail">
+						<img src="../../static/images/default_avatar.png" class="img-rounded"></img>
+					</a>
+				</li>
+				<li class="span" style="padding:0px 20px;">	
+					<a href="/{{ author.username }}/profile/" class="btn btn-small btn-info"> Profile </a>
+					<a href="/{{ author.username }}/" class="btn btn-small btn-info"> Follow </a>
+				</li>
+		</ul>
 		</div>
 	</div>
 </div>

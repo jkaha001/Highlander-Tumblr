@@ -65,6 +65,8 @@ class AudioPost(models.Model):
 		return self.__class__.__name__
 
 """
+HashTag yet to be implemented
+
 class Hashtag(models.Model):
 	name = models.CharField(max_length=50)
 	post = models.ForeignKey(Post)
