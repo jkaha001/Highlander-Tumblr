@@ -12,6 +12,28 @@ from blog.forms import TextForm, PhotoForm, VideoForm, AudioForm
 
 amazon_url = "https://s3-us-west-1.amazonaws.com/highlander-tumblr-test-bucket/"
 
+
+def upload_to_s3(file, filepath):
+	destination = default_storage.open(filepath, 'wb+')
+	for chunk in file.chunks():
+		destination.write(chunk)
+	destination.close()
+
+def delete_from_s3(filepath):
+	if default_storage.exists(filepath):
+		default_storage.delete(filepath)
+
+def delete_post(post):
+#		filepath = post.url.replace(amazon_url,'')
+#		delete_from_s3(filepath)
+#		post.delete()
+
+def upload_to_s3(file, filepath):
+	destination = default_storage.open(filepath, 'wb+')
+	for chunk in file.chunks():
+		destination.write(chunk)
+	destination.close()
+
 #Gets every post type from a particular author and returns them in a list
 #Not garunteed to be sorted
 def get_post_list_by_author(author):
@@ -132,9 +154,3 @@ def new_audio_post(request):
 	return render_to_response('blog/audiopost.html',
 							  {'form':form, 'invalid':invalid},
 							  context_instance=RequestContext(request))
-
-def upload_to_s3(file, filepath):
-	destination = default_storage.open(filepath, 'wb+')
-	for chunk in file.chunks():
-		destination.write(chunk)
-	destination.close()

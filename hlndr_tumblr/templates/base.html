@@ -34,11 +34,17 @@
 
 	<body id="page-container">
 		<div class="container-fluid" id="page-container">
+			<ul class="breadcrumb">
+				<li><a href="/login/">Login</a><span class="divider"></span></li>
+				<li><a href="/register/">Register</a><span class="divider"></span></li>
+				<li><a href="/dashboard/">Dashboard</a></li>
+			</ul>
+		
 			<div class="row-fluid">
-		{% block content %}
-		{% endblock %}
+			{% block content %}
+			{% endblock %}
 			</div>
-		</div>
+	</div>
 		<script src="{{ STATIC_PREFIX }}js/bootstrap.js"></script>
 		{% block extra_js %}
 		{% endblock %}
