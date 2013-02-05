@@ -85,6 +85,27 @@
 						<h6> {{ post.description|linebreaksbr }}</h6>
 						</div>
 
+					{% elif post.classname == "QuotePost" %}
+						<div class="well container-fluid span" id="blogpost">
+						<h1> "{{ post.quote|linebreaksbr }}" </h1>
+						<h6> -{{ post.source|linebreaksbr }} </h6>
+						</div>
+
+					{% elif post.classname == "LinkPost" %}
+						<div class="well container-fluid span" id="blogpost">
+							<div class="well container-fluid span" style="background-color:#F5F6CE;">
+							<a href="{{ post.link }}" class="btn btn-link"> {{ post.link }}</a>
+							</div>
+						<h2> {{ post.title }} </h2>
+						<h6> {{ post.description|linebreaksbr }} </h6>
+						</div>
+
+					{% elif post.classname == "ChatPost" %}
+						<div class="well container-fluid span" id="blogpost">
+							<h3> {{ post.title }} </h3>
+							<h5> {{ post.chat|linebreaksbr }} </h5>	
+						</div>
+
 					{% endif %}
 
 				{% endfor %}

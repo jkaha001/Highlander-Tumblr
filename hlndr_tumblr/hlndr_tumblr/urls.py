@@ -23,4 +23,6 @@ urlpatterns = patterns('',
 	url(r'^dashboard/$', 'dashboard.views.dashboard', name='dashboard'),
 	url(r'^new/', include('blog.urls')),
 	url(r'^(?P<username>\w+)/$', 'blog.views.blogpage', name='blogpage'),
+	url(r'^(?P<username>\w+)/posts/$', 'dashboard.views.viewposts', name='viewposts'),
+	url(r'^(?P<username>\w+)/profile/$', 'users.views.profile', name='profile'),
 )
