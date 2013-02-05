@@ -16,14 +16,15 @@ class AudioForm(forms.Form):
 	audio = forms.FileField(required=True)
 	description = forms.CharField(required=False)
 
-class QuotePost(forms.Form):
+class QuoteForm(forms.Form):
 	quote = forms.CharField(required=True)
 	source = forms.CharField(required=False)
 
-class LinkPost(forms.Form):
+class LinkForm(forms.Form):
 	title = forms.CharField(max_length=100, required=False)
 	link = forms.URLField(required=True)
+	description = forms.CharField(required=False)
 
-class ChatPost(forms.Form):
+class ChatForm(forms.Form):
 	title = forms.CharField(max_length=100, required=False)
 	chat = forms.CharField(required=True)

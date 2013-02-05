@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.files.storage import default_storage
 
-from blog.models import TextPost, PhotoPost, VideoPost, AudioPost
-from blog.forms import TextForm, PhotoForm, VideoForm, AudioForm
+from blog.models import TextPost, PhotoPost, VideoPost, AudioPost, QuotePost, LinkPost, ChatPost
+from blog.forms import TextForm, PhotoForm, VideoForm, AudioForm, QuoteForm, LinkForm, ChatForm
 
 amazon_url = "https://s3-us-west-1.amazonaws.com/highlander-tumblr-test-bucket/"
 
@@ -75,7 +75,7 @@ def new_text_post(request):
 	else:
 		form = TextForm()
 	
-	return render_to_response('blog/textpost.html',
+	return render_to_response('blog/textform.html',
 							  {'form':form, 'invalid':invalid},
 							  context_instance=RequestContext(request))
 
@@ -101,7 +101,7 @@ def new_photo_post(request):
 			invalid = "No Photo Selected"
 	else:
 		form = PhotoForm()
-	return render_to_response('blog/photopost.html',
+	return render_to_response('blog/photoform.html',
 							  {'form':form, 'invalid':invalid},
 							  context_instance=RequestContext(request))
 
@@ -126,7 +126,7 @@ def new_video_post(request):
 			invalid = "No Video Selected"
 	else:
 		form = VideoForm()
-	return render_to_response('blog/videopost.html',
+	return render_to_response('blog/videoform.html',
 							  {'form':form, 'invalid':invalid},
 							  context_instance=RequestContext(request))
 
@@ -152,6 +152,73 @@ def new_audio_post(request):
 			invalid = "No Audio Selected"
 	else:
 		form = AudioForm()
-	return render_to_response('blog/audiopost.html',
+	return render_to_response('blog/audioform.html',
 							  {'form':form, 'invalid':invalid},
 							  context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+def new_quote_post(request):
+	invalid = ""
+	if request.method == 'POST':
+		form = QuoteForm(request.POST)
+		if form.is_valid():
+			quote = form.cleaned_data['quote']
+			source = form.cleaned_data['source']
+			post = QuotePost.objects.create(quote=quote,
+										    source=source,
+											author=request.user)
+			return HttpResponseRedirect('/dashboard/')
+		else:
+			invalid = "No quote in post"
+	else:
+		form = QuoteForm()
+	return render_to_response('blog/quoteform.html',
+							  {'form':form, 'invalid':invalid},
+							  context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+def new_link_post(request):
+	invalid = ""
+	if request.method == 'POST':
+		form = LinkForm(request.POST)
+		if form.is_valid():
+			title = form.cleaned_data['title']
+			link = form.cleaned_data['link']
+			description = form.cleaned_data['description']
+			post = LinkPost.objects.create(title=title,
+										   link=link,
+										   description=description,
+										   author=request.user)
+			return HttpResponseRedirect('/dashboard/')
+		else:
+			invalid = "No link in post"
+	else:
+		form = LinkForm()
+	return render_to_response('blog/linkform.html',
+							  {'form':form, 'invalid':invalid},
+							  context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+def new_chat_post(request):
+	invalid = ""
+	if request.method == 'POST':
+		form = ChatForm(request.POST)
+		if form.is_valid():
+			title = form.cleaned_data['title']
+			chat = form.cleaned_data['chat']
+			post = ChatPost.objects.create(title=title,
+										   chat=chat,
+										   author=request.user)
+			return HttpResponseRedirect('/dashboard/')
+		else:
+			invalid = "No chat in post"
+	else:
+		form = ChatForm()
+	return render_to_response('blog/chatform.html',
+							  {'form':form, 'invalid':invalid},
+							  context_instance=RequestContext(request))
+
+
+
+
+
