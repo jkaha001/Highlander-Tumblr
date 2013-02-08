@@ -25,5 +25,6 @@ urlpatterns = patterns('',
 	url(r'^delete/(?P<post_type>\w+)/(?P<post_id>\d+)/$', 'dashboard.views.deletepost', name='deletepost'),
 	url(r'^(?P<username>\w+)/$', 'blog.views.blogpage', name='blogpage'),
 	url(r'^(?P<username>\w+)/posts/$', 'dashboard.views.viewposts', name='viewposts'),
+	url(r'^(?P<username>\w+)/posts/(?P<order>\w+)/$', 'dashboard.views.viewposts_ordered', name='viewposts'),
 	url(r'^(?P<username>\w+)/profile/$', 'users.views.profile', name='profile'),
 )

@@ -32,7 +32,17 @@
 		<input type="password" class="input-block-level" name="password2" value="{{ form.password2.value }}" id="id_password2" placeholder="Password (again)">
 		<input type="text" class="input-block-level"  name="email" value="{{ form.email.value }}" id="id_email" placeholder="Email">
 		<input type="text" class="input-block-level" name="birthday" value="{{ form.email.birthday }}" id="id_birthday" placeholder="Birthday (MM/DD/YYYY)">
-		<textarea rows="3" name="interests" id="id_interests" placeholder="Interests (optional)"></textarea>
+		<p> <strong> Gender </strong> </p>
+		<label class="radio inline">
+			<input type="radio" name="gender" id="genderU" value="u"> Undisclosed
+		</label>
+		<label class="radio inline">
+			<input type="radio" name="gender" id="genderM" value="m"> Male
+		</label>
+		<label class="radio inline">
+			<input type="radio" name="gender" id="genderF" value="f"> Female
+		</label>
+		<textarea class="span12" style="margin: 20px 0px;" rows="5" name="interests" id="id_interests" placeholder="Interests (optional)"></textarea>
 		<button type="submit" class="btn btn-large btn-primary"> Submit </button>
 	</form>
 </div>

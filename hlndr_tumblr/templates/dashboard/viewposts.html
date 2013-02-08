@@ -45,18 +45,21 @@
 					<a href="/logout/" class="btn btn-info">Logout</a>
 					<a href="/{{user.username}}/" class="btn btn-info"> Blog Page </a>
 					<a href="" class="btn btn-info"> Posts</a>
+					<a href="/{{user.username}}/profile/" class="btn btn-info">Profile</a>
 				</div>
 			</div>
 		</div>
 	
 		<div class="container span12">
-		<form method='POST' 
-		<div class="input-prepend input-append" style="padding:20px 20px;">
-			<button class="btn btn-info"> Newest </button>
-			<button class="btn btn-info"> Oldest </button>
-			<input class="span3" id="appendedInputButtons" type="text">
-			<button class="btn btn-primary">Search</button>
-		</div>
+		<form method='POST' action=".">
+		{% csrf_token %}
+			<div class="input-prepend input-append" style="padding:20px 20px;">
+				<button class="btn btn-info" type="submit" name="searchbar" value="newest"> Newest </button>
+				<button class="btn btn-info" type="submit" name="searchbar" value="oldest"> Oldest </button>
+				<input class="span3" name="searchbox" id="appendedInputButtons" type="text">
+				<button class="btn btn-primary" type="submit" name="searchbar" value="search">Search</button>
+			</div>
+		</form>
 		</div>
 
 		<div class="container span8">

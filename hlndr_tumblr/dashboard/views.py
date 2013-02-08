@@ -35,10 +35,20 @@ def deletepost(request, post_type, post_id):
 @login_required(login_url='/login/')
 def viewposts(request, username):
 	posts = get_post_list_by_author(request.user)
-	
-	#posts = sort_posts_by_newest(posts)
-	#posts = sort_posts_by_oldest(posts)
-	posts = sort_posts_by_newest(posts)		
+
+	if request.method == 'POST':
+		query = request.POST['searchbar']
+		if query == 'newest':
+			posts = sort_posts_by_newest(posts)
+		elif query == 'oldest':
+			posts = sort_posts_by_oldest(posts)
+		elif query == 'search':
+			# Implement search by tags here
+			tags = request.POST['searchbox'].split()
+		else:
+			posts = sort_posts_by_newest(posts)
+	else:
+		posts = sort_posts_by_newest(posts)
 	
 	return render_to_response('dashboard/viewposts.html',
 							  {'posts':posts, 'user':request.user},

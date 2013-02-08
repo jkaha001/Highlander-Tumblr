@@ -10,18 +10,12 @@ from django.contrib.auth.models import User
 from users.forms import RegisterForm, LoginForm
 from users.models import UserProfile
 
-"""
-blog pages moved to blog app
-
-# user homepage
-def home(request, username):
+# user profile page
+def profile(request, username):
 	user = get_object_or_404(User, username=username)
-	template = loader.get_template('users/home.html')
-	context = Context({
-		'username': user.username,
-	})
-	return HttpResponse(template.render(context))
-"""
+	return render_to_response('users/profile.html',
+							  {'user':user},
+							  context_instance=RequestContext(request))
 
 # login page
 def log_in(request):
@@ -84,7 +78,7 @@ def register(request):
 			newuser = User(username=username,email=email)
 			newuser.set_password(password)
 			newuser.save()
-
+			
 			# save user profile to database
 			user = User.objects.get(username=username)
 			newUserProfile = UserProfile.objects.create(user=user,
@@ -92,10 +86,7 @@ def register(request):
 														nickname=nickname,
 														gender=gender,
 														interests=interests)
-			newUserProfile.save()
-
 			return HttpResponseRedirect('/login/')
-		
 		else:
 			return render_to_response('users/register.html',
 									  {'form':form,
