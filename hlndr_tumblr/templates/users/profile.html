@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ user.username }} &middot; Highlandr {% endblock %}
+
+{% block extra_css %}
+<style type="text/css">
+
+#profileblock {
+	background-color:#04819E;
+	padding: 50px 50px;
+	margin: 20px auto 0px;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container span8" style="background-color:#206676;">
+	<div class="row-fluid span12" style="min-height: 100%; margin:auto auto;">
+		<div class="container span12" id="profileblock">
+			<h1> {{ user.username }} {% if user.userprofile.nickname != "" %} "{{ user.userprofile.nickname }}" {% endif %} </h1>
+		</div>
+		<div class="container span12" id="profileblock">
+			<h4> Gender: {{ user.userprofile.get_gender_display }} </h4>
+			<h4> Email: {{ user.email }} </h4>
+			<h4> Birthday: {{ user.userprofile.birthday }} </h4>
+			<h4> Date Joined: {{ user.date_joined }} </h4>
+		</div>
+		<div class="container span12" id="profileblock">
+			{% if user.userprofile.interests != "" %}
+			<h4> Interests: <h4>
+			<h4> {{ user.userprofile.interests|linebreaksbr }} </h4>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<div class="container span4" style="background-color:#206676;">
+	<div class="row-fluid span12" style="min-height: 100%; margin:auto auto;">
+		<div class="container span12" id="profileblock" style="height: 450px;">
+		</div>
+	</div>
+</div>
+
+{% endblock %}
