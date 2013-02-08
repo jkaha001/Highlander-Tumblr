@@ -10,12 +10,10 @@ from django.contrib.auth.models import User
 from users.forms import RegisterForm, LoginForm
 from users.models import UserProfile
 
-# user profile page
 def profile(request, username):
-	user = get_object_or_404(User, username=username)
-	return render_to_response('users/profile.html',
-							  {'user':user},
-							  context_instance=RequestContext(request))
+    owner = get_object_or_404(User,username=username)
+    ownerprofile = get_object_or_404(UserProfile,user=owner)
+    return render_to_response('users/profile.html', {'owner':owner, 'ownerprofile':ownerprofile}, context_instance=RequestContext(request))
 
 # login page
 def log_in(request):

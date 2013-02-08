@@ -11,6 +11,7 @@ class UserProfile(models.Model):
 	)
     
 	user = models.OneToOneField(User)
+
 	# URL to avatar image hosted
 	avatar = models.URLField()
 	nickname = models.CharField(max_length=50, blank=True)
