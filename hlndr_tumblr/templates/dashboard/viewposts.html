@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %} Highlandr Dashboard {% endblock %}
+
+{% block extra_css %}
+
+<style type="text/css">
+
+	.fill {
+		min-height: 100%;
+	}
+
+	#blogname {
+		padding-left:20px;
+	}
+
+	#blogpost {
+		padding: 20px 20px;
+		background-color:#F1AB00;
+	}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container fill" style="background-color:#EEE;">
+	<div class="row-fluid">
+		<div class="well span12">
+			<div class="span8">
+				<h2 id="blogname"> Dashboard </h2>
+				<div class="btn-group span8">
+					<a href="/new/text" class="btn"> Text Post </a>
+					<a href="/new/photo" class="btn"> Photo Post </a>
+					<a href="/new/quote" class="btn"> Quote Post </a>
+					<a href="/new/link" class="btn"> Link Post </a>
+					<a href="/new/chat" class="btn"> Chat Post </a>
+					<a href="/new/audio" class="btn"> Audio Post </a>
+					<a href="/new/video" class="btn"> Video Post </a>
+				</div>
+			</div>
+			<div align="right" class="span4">
+				<div class="btn-group btn-group-vertical">
+					<a href="/logout/" class="btn btn-info">Logout</a>
+					<a href="/{{user.username}}/" class="btn btn-info"> Blog Page </a>
+					<a href="" class="btn btn-info"> Posts</a>
+				</div>
+			</div>
+		</div>
+	
+		<div class="container span12">
+		<form method='POST' 
+		<div class="input-prepend input-append" style="padding:20px 20px;">
+			<button class="btn btn-info"> Newest </button>
+			<button class="btn btn-info"> Oldest </button>
+			<input class="span3" id="appendedInputButtons" type="text">
+			<button class="btn btn-primary">Search</button>
+		</div>
+		</div>
+
+		<div class="container span8">
+			<div></div>
+
+				{% for post in posts %}
+				<div class="well container-fluid span" id="blogpost">
+					<p><a align="left" class="close" href="/delete/{{post.classname|lower}}/{{post.id}}/">&times;</a></p>
+					{% if post.classname == "TextPost" %}
+						<h3>
+							{{ post.title }}
+						</h3>
+						<h5>
+							{{ post.post_date }}
+						</h5>
+						<h6>
+							{{ post.text|linebreaksbr }}
+						</h6>
+
+					{% elif post.classname == "PhotoPost" %}
+							<h5>
+								{{ post.post_date }}
+							</h5>
+							<img src="{{ post.url }}"></img>
+							<h6>
+								{{ post.caption|linebreaksbr }}
+							</h6>
+
+					{% elif post.classname == "VideoPost" %}
+						<h5> {{ post.post_date }} </h5>
+						<video width="100%" controls>
+							<source src="{{ post.url }}" type="video/mp4">
+							<p> Could not play </p>
+						</video>
+						<h6> {{ post.description|linebreaksbr }}</h6>
+
+					{% elif post.classname == "AudioPost" %}
+						<h5> {{ post.post_date }} </h5>
+						<audio controls>
+							<source src="{{ post.url }}" type="audio/mpeg">
+							<p> Could not play </p>
+						</audio>
+						<h6> {{ post.description|linebreaksbr }}</h6>
+
+					{% elif post.classname == "QuotePost" %}
+						<h5>{{post.post_date}}</h5>
+						<h1> "{{ post.quote|linebreaksbr }}" </h1>
+						<h5> -{{ post.source|linebreaksbr }} </h5>
+
+					{% elif post.classname == "LinkPost" %}
+						<div class="well container-fluid" style="background-color:#F5F6CE;">
+						<a href="{{ post.link }}" class="btn btn-link"> {{ post.link }}</a>
+						</div>
+						<h5>{{post.post_date}}</h5>
+						<h2> {{ post.title }} </h2>
+						<h6> {{ post.description|linebreaksbr }} </h6>
+
+					{% elif post.classname == "ChatPost" %}
+							<h5>{{post.post_date}}</h5>
+							<h3> {{ post.title }} </h3>
+							<h5> {{ post.chat|linebreaksbr }} </h5>	
+
+					{% endif %}
+				</div>
+				{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% endblock %}
