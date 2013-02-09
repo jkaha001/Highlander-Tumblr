@@ -6,7 +6,7 @@
 <style type="text/css">
 
 #profileblock {
-	background-color:#04819E;
+	background-color:#35C0CD;
 	padding: 50px 50px;
 	margin: 20px auto 0px;
 }
@@ -38,8 +38,20 @@
 
 <div class="container span4" style="background-color:#206676;">
 	<div class="row-fluid span12" style="min-height: 100%; margin:auto auto;">
-		<div class="container span12" id="profileblock" style="height: 450px;">
-		</div>
+		<ul class="thumbnails">
+			<div class="container span12" id="profileblock" style="height: 450px;">
+				<a href="/{{ user.username }}/" class="thumbnail">
+					{% if user.userprofile.avatar == "" %}
+					<img src="../../static/img/default_avatar.png" class="img-rounded"></img>
+					{% else %}
+					<img src="{{ user.userprofile.avatar }}" class="img-rounded"></img>
+					{% endif %}
+				</a>
+				<center>
+				<a href="/editphoto/" class="btn btn-info"> Edit Photo </a>
+				</center>
+			</div>
+		</ul>
 	</div>
 </div>
 
