@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
+from taggit.managers import TaggableManager
+
 # Create your models here.
 
 class TextPost(models.Model):
@@ -10,6 +12,7 @@ class TextPost(models.Model):
 	text = models.TextField()
 	post_date = models.DateTimeField(auto_now_add=True)
 	author = models.ForeignKey(User)
+	tags = TaggableManager()
 
 	def __unicode__(self):
 		return "author:%s, title:%s, post_date:%s" % (self.author.username, 
@@ -25,6 +28,7 @@ class PhotoPost(models.Model):
 	caption = models.TextField()
 	post_date = models.DateTimeField(auto_now_add=True)
 	author = models.ForeignKey(User)
+	tags = TaggableManager()
 
 	def __unicode__(self):
 		return "author:%s, filename:%s, post_date:%s" % (self.author.username,
@@ -40,6 +44,7 @@ class VideoPost(models.Model):
 	description = models.TextField()
 	post_date = models.DateTimeField(auto_now_add=True)
 	author = models.ForeignKey(User)
+	tags = TaggableManager()
 
 	def __unicode__(self):
 		return "author:%s, filename:%s, post_date:%s" % (self.author.username,
@@ -55,6 +60,7 @@ class AudioPost(models.Model):
 	description = models.TextField()
 	post_date = models.DateTimeField(auto_now_add=True)
 	author = models.ForeignKey(User)
+	tags = TaggableManager()
 
 	def __unicode__(self):
 		return "author:%s, filename:%s, post_date:%s" % (self.author.username,
@@ -69,6 +75,7 @@ class QuotePost(models.Model):
 	source = models.TextField()
 	post_date = models.DateTimeField(auto_now_add=True)
 	author = models.ForeignKey(User)
+	tags = TaggableManager()
 
 	def __unicode__(self):
 		return "author:%s, post_date:%s" % (self.author.username, self.post_date)
@@ -82,6 +89,7 @@ class LinkPost(models.Model):
 	description = models.TextField()
 	post_date = models.DateTimeField(auto_now_add=True)
 	author = models.ForeignKey(User)
+	tags = TaggableManager()
 
 	def __unicode__(self):
 		return "author:%s, title:%s, post_date:%s" % (self.author.username,
@@ -95,6 +103,7 @@ class ChatPost(models.Model):
 	chat = models.TextField()
 	post_date = models.DateTimeField(auto_now_add=True)
 	author = models.ForeignKey(User)
+	tags = TaggableManager()
 
 	def __unicode__(self):
 		return "author:%s, title:%s, post_date:%s" % (self.author.username,
@@ -102,11 +111,3 @@ class ChatPost(models.Model):
 													  self.post_date)
 	def classname(self):
 		return self.__class__.__name__
-
-"""
-HashTag yet to be implemented
-
-class Hashtag(models.Model):
-	name = models.CharField(max_length=50)
-	post = models.ForeignKey(Post)
-"""

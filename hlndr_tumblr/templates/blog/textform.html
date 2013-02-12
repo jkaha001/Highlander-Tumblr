@@ -27,8 +27,9 @@
 			{% else %}
 			<input type="text" class="input-block-level" name="title" id="id_title" value="{{ form.title.value }}" placeholder="Title (optional)">	
 			{% endif %}
-			<textarea rows="10" class="field span12" name="text" id="id_text" value="{{ form.text.value }}"></textarea>
-		</div>
+			<textarea rows="10" class="field span12" name="text" id="id_text" value="{{ form.text.value }}"></textarea>	
+       <input type="text" class="input-block-level" name="tags" placeholder="Tags seperated by commas (optional)"></input>
+			</div>
 		<button type="submit" class="btn btn-block btn-primary"> Post </button>
 	</form>
 </div>

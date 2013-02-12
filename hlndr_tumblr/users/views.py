@@ -11,9 +11,9 @@ from users.forms import RegisterForm, LoginForm
 from users.models import UserProfile
 
 def profile(request, username):
-    owner = get_object_or_404(User,username=username)
-    ownerprofile = get_object_or_404(UserProfile,user=owner)
-    return render_to_response('users/profile.html', {'owner':owner, 'ownerprofile':ownerprofile}, context_instance=RequestContext(request))
+    user = get_object_or_404(User,username=username)
+    userprofile = get_object_or_404(UserProfile,user=user)
+    return render_to_response('users/profile.html', {'user':user, 'userprofile':userprofile}, context_instance=RequestContext(request))
 
 # login page
 def log_in(request):

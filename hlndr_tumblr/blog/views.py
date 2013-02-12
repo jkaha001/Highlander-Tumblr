@@ -78,7 +78,8 @@ def new_text_post(request):
 										   slug=slug,
 										   text=text,
 										   author=request.user,)
-
+			tags = form.cleaned_data['tags']
+				
 			return HttpResponseRedirect('/dashboard/')
 		else:
 			invalid = "No text in post"
@@ -101,6 +102,7 @@ def new_photo_post(request):
 											url="",
 											caption=caption,
 											author=request.user)
+			tags = form.cleaned_data['tags']
 
 			filepath = "%s/image/%s/%s" % (request.user.username, str(post.id), file.name)
 			s3_thread(file, filepath)
@@ -127,6 +129,8 @@ def new_video_post(request):
 										    url="",
 											description=description,
 											author=request.user)
+			tags = form.cleaned_data['tags']
+
 			filepath = "%s/video/%s/%s" % (request.user.username, str(post.id), file.name)
 			s3_thread(file, filepath)
 			post.url = amazon_url + filepath
@@ -153,6 +157,8 @@ def new_audio_post(request):
 										    url="",
 											description=description,
 											author=request.user)
+			tags = form.cleaned_data['tags']
+
 			filepath = "%s/audio/%s/%s" % (request.user.username, str(post.id), file.name)
 			s3_thread(file, filepath)
 			post.url = amazon_url + filepath
@@ -177,6 +183,8 @@ def new_quote_post(request):
 			post = QuotePost.objects.create(quote=quote,
 										    source=source,
 											author=request.user)
+			tags = form.cleaned_data['tags']
+
 			return HttpResponseRedirect('/dashboard/')
 		else:
 			invalid = "No quote in post"
@@ -199,6 +207,8 @@ def new_link_post(request):
 										   link=link,
 										   description=description,
 										   author=request.user)
+			tags = form.cleaned_data['tags']
+
 			return HttpResponseRedirect('/dashboard/')
 		else:
 			invalid = "No link in post"
@@ -219,6 +229,8 @@ def new_chat_post(request):
 			post = ChatPost.objects.create(title=title,
 										   chat=chat,
 										   author=request.user)
+			tags = form.cleaned_data['tags']
+
 			return HttpResponseRedirect('/dashboard/')
 		else:
 			invalid = "No chat in post"
