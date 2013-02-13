@@ -6,13 +6,13 @@ from django.contrib.auth.decorators import login_required
 
 from blog.views import get_post_list_by_author, delete_post
 
-@login_required(login_url='/login/')
-def dashboard(request):
-	if request.user.is_authenticated():
-		user = request.user
-
-	return render_to_response('dashboard/dashboard.html',
-							  context_instance=RequestContext(request))
+# gets all the posts from all people a user has followed
+def get_followed_posts(user):
+	following = user.userprofile.following.all()
+	posts = []
+	for author in following:
+		posts += get_post_list_by_author(author.user)
+	return posts
 
 def sort_posts_by_oldest(posts):
 	posts = sorted(posts, key=lambda post: post.post_date)
@@ -21,6 +21,17 @@ def sort_posts_by_oldest(posts):
 def sort_posts_by_newest(posts):
 	posts = reversed(sorted(posts, key=lambda post: post.post_date))
 	return posts
+	
+@login_required(login_url='/login/')
+def dashboard(request):
+	if request.user.is_authenticated():
+		user = request.user
+
+	posts = sort_posts_by_newest(get_followed_posts(user) + get_post_list_by_author(user))
+		
+	return render_to_response('dashboard/dashboard.html',
+							  {'posts':posts},
+							  context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def deletepost(request, post_type, post_id):

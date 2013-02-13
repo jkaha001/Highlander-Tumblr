@@ -4,6 +4,9 @@
 
 {% block extra_css %}
 <style type="text/css">
+#page-container{
+	background-color:#2A4480;
+}
 
 #profileblock {
 	background-color:#35C0CD;
@@ -16,7 +19,7 @@
 
 {% block content %}
 
-<div class="container span8" style="background-color:#206676;">
+<div class="container span8">
 	<div class="row-fluid span12" style="min-height: 100%; margin:auto auto;">
 		<div class="container span12" id="profileblock">
 			<h1> {{ user.username }} {% if user.userprofile.nickname != "" %} "{{ user.userprofile.nickname }}" {% endif %} </h1>
@@ -36,7 +39,7 @@
 	</div>
 </div>
 
-<div class="container span4" style="background-color:#206676;">
+<div class="container span4">
 	<div class="row-fluid span12" style="min-height: 100%; margin:auto auto;">
 		<ul class="thumbnails">
 			<div class="container span12" id="profileblock" style="height: 450px;">

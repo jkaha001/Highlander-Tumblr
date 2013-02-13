@@ -1,28 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'dashboard/dashboard.html' %}
 
 {% block title %} Highlandr Dashboard {% endblock %}
 
 {% block extra_css %}
 
 <style type="text/css">
-	#mainbody {
-		background-color:#eee;	
-	}
-
-	#blogname {
-		padding-left:20px;			
-	}
-
-	#sidebar {
-	}
-
-	.fill {
-		min-height: 100%;
-	}
-
     #follower {
-        padding: 20px 20px;
-		background-color:#F1AB00
+			padding: 20px 20px;
+			background-color:#FBFE72;
     }
 </style>
 
@@ -31,25 +16,14 @@
 {% block breadcrumbs %}
 {% endblock %}
 
-{% block content %}
-<div class="container fill" id="mainbody">
-	<div class="row-fluid">
-		<div class="well span12">
-            <div class="span8">
-                <h2 id="blogname"> <center>Following</center> </h2>
-				<div class="btn-group span8">
-				</div>
-            </div>
+{% block dashboard_content %}
+		<div class="span12">
+		<div></div>
+			{% for follower in follower_list %}
+			<div class="well span2" id="follower">
+       <a href="/{{ follower.user }}/"><strong>{{ follower.user }}</strong></a>
+			</div>
+			{% endfor %}
 		</div>
-        {% for follower in follower_list %}
-            <div class="well container-fluid span" id="follower">
-                    <h3>
-                        <a href="/{{ follower.user }}/"> {{ follower.user }} </a>
-                    </h3>
-                </div>
-        {% endfor %}
-	</div>
-</div>
-
 {% endblock %}
 

@@ -5,8 +5,12 @@
 {% block extra_css %}
 
 <style type="text/css">
+	#page-container {
+		background-color:#2A4480;
+	}
+
 	#mainbody {
-		background-color:#eee;	
+		background-color:#2A4480;	
 	}
 
 	#blogname {
@@ -19,11 +23,11 @@
 
 	#blogpost {
 		padding: 20px 20px;
-		background-color:#F1AB00;
+		background-color:#e7dd68;
 	}
 
 	#blogcontainer {
-		background-color:#EEE;
+		background-color:#2A4480;
 	}
 
 </style>
@@ -36,7 +40,7 @@
 	<div class="row-fluid" id="blogcontainer">
 		<div class="container span8">
 			<div></div>
-			<div class="well container-fluid span" id="blogname">
+			<div class="well container-fluid span" id="blogname" style="background-color:#fffcdc">
 				<h2> Untitled </h2>
 			</div>
 				{% for post in posts %}
@@ -84,7 +88,7 @@
 
 					{% elif post.classname == "LinkPost" %}
 						<div class="well container-fluid span" style="background-color:#F5F6CE;">
-							<a href="{{ post.link }}" class="btn btn-link"> {{ post.link }}</a>
+							<a href="{{ post.link }}" class="btn btn-link"><strong>{{ post.link }}</strong></a>
 						</div>
 						<h5> {{ post.post_date }} </h5>
 						<h2> {{ post.title }} </h2>

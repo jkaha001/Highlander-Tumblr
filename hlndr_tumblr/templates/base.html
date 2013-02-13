@@ -7,8 +7,6 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<title>{% block title %} Highlander Tumblr {% endblock %}</title>
-		{% block extra_css %}
-		{% endblock %}	
 		<!-- #2D6CC0 UCR Blue -->
 		<!-- #F1AB00 UCR Gold -->
 		
@@ -28,6 +26,10 @@
 		.row-fluid { height: inherit; }
 	
 		</style>
+
+		{% block extra_css %}
+		{% endblock %}	
+
 		<link rel="stylesheet" href="{{ STATIC_PREFIX }}css/bootstrap.css" />
 		<link rel="stylesheet" href="{{ STATIC_PREFIX }}css/bootstrap-responsive.css" />
 		<script src="http://api.html5media.info/1.1.5/html5media.min.js"></script>	

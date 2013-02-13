@@ -143,6 +143,7 @@ INSTALLED_APPS = (
 	'users',
 	'dashboard',
 	'blog',
+	'following',
 	'storages',
 	'taggit',
 )
