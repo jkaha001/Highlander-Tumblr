@@ -5,23 +5,8 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 
 from blog.views import get_post_list_by_author, delete_post
+from utils.shortcuts import *
 
-# gets all the posts from all people a user has followed
-def get_followed_posts(user):
-	following = user.userprofile.following.all()
-	posts = []
-	for author in following:
-		posts += get_post_list_by_author(author.user)
-	return posts
-
-def sort_posts_by_oldest(posts):
-	posts = sorted(posts, key=lambda post: post.post_date)
-	return posts
-
-def sort_posts_by_newest(posts):
-	posts = reversed(sorted(posts, key=lambda post: post.post_date))
-	return posts
-	
 @login_required(login_url='/login/')
 def dashboard(request):
 	if request.user.is_authenticated():
