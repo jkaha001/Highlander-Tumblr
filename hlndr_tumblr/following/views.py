@@ -10,11 +10,14 @@ from blog.views import get_post_list_by_author, delete_post
 
 @login_required(login_url='/login/')
 def following(request):
-    if request.user.is_authenticated():
-        user = request.user
-    myself = get_object_or_404(User, username=user.username)
-    myprofile = get_object_or_404(UserProfile, user=myself)
-    return render_to_response('following/following.html', {'follower_list':myprofile.following.all()}, context_instance=RequestContext(request))
+	if request.user.is_authenticated():
+		user = request.user
+	myself = get_object_or_404(User, username=user.username)
+	myprofile = get_object_or_404(UserProfile, user=myself)
+	followlist = myprofile.following.all()
+	return render_to_response('following/following.html',
+							  {'follower_list':followlist, 'count':followlist.count()},
+							  context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def follow(request, username):
