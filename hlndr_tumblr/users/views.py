@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.shortcuts import get_object_or_404, render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # from users.models import User
 from users.forms import RegisterForm, LoginForm
@@ -43,10 +44,12 @@ def log_in(request):
 	context = RequestContext(request)
 	return HttpResponse(template.render(context))
 
+@login_required(login_url='/login/')
 def log_out(request):
 	logout(request)
 	return HttpResponseRedirect('/')
 
+@login_required(login_url='/login/')
 def editProfilePhoto(request):
 	if request.method == 'POST':
 		forms = ImageForm(request.POST, request.FILES)
