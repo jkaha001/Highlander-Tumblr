@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from users.forms import RegisterForm, LoginForm, ImageForm
 from users.models import UserProfile
 
+from utils.shortcuts import *
+
 def profile(request, username):
     user = get_object_or_404(User,username=username)
     userprofile = get_object_or_404(UserProfile,user=user)
@@ -56,12 +58,12 @@ def editProfilePhoto(request):
 		if forms.is_valid():
 			file = request.FILES['image']
 			#we may want to add an id field here to prevent user from accidently overriding
-			filePath = "%s/ProfilePhote/%s/" % (request.user.username, file.name)
+			filePath = "%s/ProfilePhoto/%s" % (request.user.username, file.name)
 			s3_thread(file, filePath)
 			request.user.userprofile.avatar = amazon_url + filePath
 			request.user.userprofile.save()
 			userName = request.user.username
-			return HttpResponseRedirect("%s/profile" % userName)
+			return HttpResponseRedirect("/%s/profile/" % userName)
 	else:
 		form = ImageForm()
 	return render_to_response("users/editprofile.html",

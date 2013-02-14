@@ -23,6 +23,7 @@
 	<div class="row-fluid span12" style="min-height: 100%; margin:auto auto;">
 		<div class="well container-fluid span8" style="background-color:#e7dd68;">
 			<form action="/editphoto/" method="POST" enctype="multipart/form-data" class="form-horizontal">
+				{% csrf_token %}
 				<h3> Profile Image (200 x 200): </h3>
 				{{ form.image }}
 				<button type="submit" class="btn btn-inverse btn-block-level"> Upload </button>
