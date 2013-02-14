@@ -47,6 +47,24 @@ def log_out(request):
 	logout(request)
 	return HttpResponseRedirect('/')
 
+def editProfilePhoto(request):
+	if request.method == 'POST':
+		forms = ImageForm(request.POST, request.FILES)
+		if forms.is_valid():
+			file = request.FILES['image']
+			#we may want to add an id field here to prevent user from accidently overriding
+			filePath = "%s/ProfilePhote/%s/" % (request.user.username, file.name)
+			upload_to_s3(file, filePath);
+			request.user.userprofile.avatar = amazon_url + filePath
+			request.user.userprofile.save()
+			userName = request.user.username
+			return HttpResponseRedirect("%s/profile" % userName)
+	else:
+		form = ImageForm()
+		return render_to_response("users/editprofile.html",
+									{'users':request.user,'form':form},
+									context_instance=RequestContext(request))
+
 # registration page
 def register(request):
 	if request.method == 'POST':
