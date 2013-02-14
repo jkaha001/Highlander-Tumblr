@@ -10,14 +10,10 @@ from django.contrib.auth.models import User
 from users.forms import RegisterForm, LoginForm
 from users.models import UserProfile
 
-# user homepage
-def home(request, username):
-	user = get_object_or_404(User, username=username)
-	template = loader.get_template('users/home.html')
-	context = Context({
-		'username': user.username,
-	})
-	return HttpResponse(template.render(context))
+def profile(request, username):
+    user = get_object_or_404(User,username=username)
+    userprofile = get_object_or_404(UserProfile,user=user)
+    return render_to_response('users/profile.html', {'user':user, 'userprofile':userprofile}, context_instance=RequestContext(request))
 
 # login page
 def log_in(request):
@@ -51,6 +47,24 @@ def log_out(request):
 	logout(request)
 	return HttpResponseRedirect('/')
 
+def editProfilePhoto(request):
+	if request.method == 'POST':
+		forms = ImageForm(request.POST, request.FILES)
+		if forms.is_valid():
+			file = request.FILES['image']
+			#we may want to add an id field here to prevent user from accidently overriding
+			filePath = "%s/ProfilePhote/%s/" % (request.user.username, file.name)
+			upload_to_s3(file, filePath);
+			request.user.userprofile.avatar = amazon_url + filePath
+			request.user.userprofile.save()
+			userName = request.user.username
+			return HttpResponseRedirect("%s/profile" % userName)
+	else:
+		form = ImageForm()
+		return render_to_response("users/editprofile.html",
+									{'users':request.user,'form':form},
+									context_instance=RequestContext(request))
+
 # registration page
 def register(request):
 	if request.method == 'POST':
@@ -80,7 +94,7 @@ def register(request):
 			newuser = User(username=username,email=email)
 			newuser.set_password(password)
 			newuser.save()
-
+			
 			# save user profile to database
 			user = User.objects.get(username=username)
 			newUserProfile = UserProfile.objects.create(user=user,
@@ -88,10 +102,7 @@ def register(request):
 														nickname=nickname,
 														gender=gender,
 														interests=interests)
-			newUserProfile.save()
-
-			return HttpResponseRedirect('/' + newuser.username + '/')
-		
+			return HttpResponseRedirect('/login/')
 		else:
 			return render_to_response('users/register.html',
 									  {'form':form,

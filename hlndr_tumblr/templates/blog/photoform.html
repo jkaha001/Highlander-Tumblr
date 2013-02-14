@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} New Photo Post {% endblock %}
+
+{% block extra_css %}
+	<style type="text/css">
+	
+	.form-horizontal {
+		background-color:#eee;
+		padding: 20px 20px;
+		margin: 255px auto;
+		max-width: 500px;
+	}
+
+	</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<form action="/new/photo/" method="POST" enctype="multipart/form-data" class="form-horizontal">
+		{% csrf_token %}
+		<h2> Make a photo post </h2>
+		<h5> {{ invalid }}</h5>
+		<div>
+			{{ form.photo }}
+			{% if form.caption.value == None %}
+			<textarea rows="10" class="field span12" name="caption" id="id_caption" placeholder="Caption (optional)"></textarea>
+			{% else %}
+			<textarea rows="10" class="field span12" name="caption" id="id_caption" value="{{ form.caption.value }}" placeholder="Caption (optional)"></textarea>
+			{% endif %}
+			<input type="text" class="input-block-level" name="tags" placeholder="Tags seperated by commas (optional)"></input>
+		</div>
+		<button type="submit" class="btn btn-block btn-primary"> Post </button>
+	</form>
+</div>
+
+{% endblock %}

@@ -21,6 +21,11 @@ urlpatterns = patterns('',
 	url(r'^login/$', 'users.views.log_in', name='log_in'),
 	url(r'^logout/$', 'users.views.log_out', name='log_out'),
 	url(r'^dashboard/$', 'dashboard.views.dashboard', name='dashboard'),
-	url(r'^(?P<username>\w+)/$', 'users.views.home', name='users.home')
-
+	url(r'^new/', include('blog.urls')),
+	url(r'^delete/(?P<post_type>\w+)/(?P<post_id>\d+)/$', 'dashboard.views.deletepost', name='deletepost'),
+   	url(r'^following/$', 'following.views.following', name='following'),
+  	url(r'^follow/(?P<username>\w+)/$', 'following.views.follow', name='follow'),
+	url(r'^(?P<username>\w+)/$', 'blog.views.blogpage', name='blogpage'),
+	url(r'^(?P<username>\w+)/posts/$', 'dashboard.views.viewposts', name='viewposts'),
+	url(r'^(?P<username>\w+)/profile/$', 'users.views.profile', name='profile'),
 )

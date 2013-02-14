@@ -1,6 +1,8 @@
 # Django settings for hlndr_tumblr project.
 import os
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -15,15 +17,27 @@ MANAGERS = ADMINS
 project_dir = os.path.dirname( os.path.abspath('__file__') )
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(project_dir,'db/hlndr_tumblr.db'),                      # Or path to database file if using sqlite3.
+	'default': {
+		'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+		'NAME': os.path.join(project_dir,"hlndr_tumblr.db"),                      # Or path to database file if using sqlite3.
 		'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
+		'PASSWORD': '',                  # Not used with sqlite3.
+		'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+		'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+	}
 }
+"""
+DATABASES = {
+	'default': {
+		'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+		'NAME': 'd8cmtbjk90pqvb',                      # Or path to database file if using sqlite3.
+		'USER': 'ailmervfaempjg',                      # Not used with sqlite3.
+		'PASSWORD': '',                  # Not used with sqlite3.
+		'HOST': 'ec2-54-243-243-217.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
+		'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
+	}
+}
+"""
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -128,6 +142,10 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 	'users',
 	'dashboard',
+	'blog',
+	'following',
+	'storages',
+	'taggit',
 )
 
 # A sample logging configuration. The only tangible logging
