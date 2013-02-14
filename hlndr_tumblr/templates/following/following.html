@@ -1,0 +1,29 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} Highlandr Dashboard {% endblock %}
+
+{% block extra_css %}
+
+<style type="text/css">
+    #follower {
+			padding: 20px 20px;
+			background-color:#FBFE72;
+    }
+</style>
+
+{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+{% block dashboard_content %}
+		<div class="span12">
+		<div></div>
+			{% for follower in follower_list %}
+			<div class="well span2" id="follower">
+       <a href="/{{ follower.user }}/"><strong>{{ follower.user }}</strong></a>
+			</div>
+			{% endfor %}
+		</div>
+{% endblock %}
+

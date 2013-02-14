@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ author.username }}'s Blog {% endblock %}
+
+{% block extra_css %}
+
+<style type="text/css">
+	#page-container {
+		background-color:#2A4480;
+	}
+
+	#mainbody {
+		background-color:#2A4480;	
+	}
+
+	#blogname {
+		padding: 20px 20px;
+	}	
+
+	.fill {
+		min-height: 100%;
+	}
+
+	#blogpost {
+		padding: 20px 20px;
+		background-color:#e7dd68;
+	}
+
+	#blogcontainer {
+		background-color:#2A4480;
+	}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container fill" id="mainbody">
+	<div class="row-fluid" id="blogcontainer">
+		<div class="container span8">
+			<div></div>
+			<div class="well container-fluid span" id="blogname" style="background-color:#fffcdc">
+				<h2> Untitled </h2>
+			</div>
+				{% for post in posts %}
+				<div class="well container-fluid span" id="blogpost">
+					{% if post.classname == "TextPost" %}
+						<h3>
+							{{ post.title }}
+						</h3>
+						<h5>
+							{{ post.post_date }}
+						</h5>
+						<h6>
+							{{ post.text|linebreaksbr }}
+						</h6>
+
+					{% elif post.classname == "PhotoPost" %}
+							<h5>
+								{{ post.post_date }}
+							</h5>
+							<img src="{{ post.url }}"></img>
+							<h6>
+								{{ post.caption|linebreaksbr }}
+							</h6>
+
+					{% elif post.classname == "VideoPost" %}
+						<h5> {{ post.post_date }} </h5>
+						<video width="100%" controls>
+							<source src="{{ post.url }}" type="video/mp4">
+							<p> Could not play </p>
+						</video>
+						<h6> {{ post.description|linebreaksbr }}</h6>
+
+					{% elif post.classname == "AudioPost" %}
+						<h5> {{ post.post_date }} </h5>
+						<audio controls>
+							<source src="{{ post.url }}" type="audio/mpeg">
+							<p> Could not play </p>
+						</audio>
+						<h6> {{ post.description|linebreaksbr }}</h6>
+
+					{% elif post.classname == "QuotePost" %}
+						<h5> {{ post.post_date }} </h5>
+						<h1> "{{ post.quote|linebreaksbr }}" </h1>
+						<h6> -{{ post.source|linebreaksbr }} </h6>
+
+					{% elif post.classname == "LinkPost" %}
+						<div class="well container-fluid span" style="background-color:#F5F6CE;">
+							<a href="{{ post.link }}" class="btn btn-link"><strong>{{ post.link }}</strong></a>
+						</div>
+						<h5> {{ post.post_date }} </h5>
+						<h2> {{ post.title }} </h2>
+						<h6> {{ post.description|linebreaksbr }} </h6>
+
+					{% elif post.classname == "ChatPost" %}
+							<h5> {{ post.post_date }} </h5>
+							<h3> {{ post.title }} </h3>
+							<h5> {{ post.chat|linebreaksbr }} </h5>	
+
+					{% endif %}
+				</div>
+				{% endfor %}
+		</div>
+		<div class="container span2">
+			<ul class="thumbnails">
+				<li class="span" style="padding:20px 20px 0px;">
+					<a href="/{{ author.username }}/profile/" class="thumbnail">
+						<img src="../../static/img/default_avatar.png" class="img-rounded"></img>
+					</a>
+				</li>
+				<li class="span" style="padding:0px 20px;">	
+					<a href="/{{ author.username }}/profile/" class="btn btn-small btn-info"> Profile </a>
+          			<a href="/follow/{{ author.username }}/" class="btn btn-small btn-info"> Follow </a>
+				</li>
+		</ul>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

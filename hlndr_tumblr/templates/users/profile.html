@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ user.username }} &middot; Highlandr {% endblock %}
+
+{% block extra_css %}
+<style type="text/css">
+#page-container{
+	background-color:#2A4480;
+}
+
+#profileblock {
+	background-color:#35C0CD;
+	padding: 50px 50px;
+	margin: 20px auto 0px;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container span8">
+	<div class="row-fluid span12" style="min-height: 100%; margin:auto auto;">
+		<div class="container span12" id="profileblock">
+			<h1> {{ user.username }} {% if user.userprofile.nickname != "" %} "{{ user.userprofile.nickname }}" {% endif %} </h1>
+		</div>
+		<div class="container span12" id="profileblock">
+			<h4> Gender: {{ user.userprofile.get_gender_display }} </h4>
+			<h4> Email: {{ user.email }} </h4>
+			<h4> Birthday: {{ user.userprofile.birthday }} </h4>
+			<h4> Date Joined: {{ user.date_joined }} </h4>
+		</div>
+		<div class="container span12" id="profileblock">
+			{% if user.userprofile.interests != "" %}
+			<h4> Interests: <h4>
+			<h4> {{ user.userprofile.interests|linebreaksbr }} </h4>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<div class="container span4">
+	<div class="row-fluid span12" style="min-height: 100%; margin:auto auto;">
+		<ul class="thumbnails">
+			<div class="container span12" id="profileblock" style="height: 450px;">
+				<a href="/{{ user.username }}/" class="thumbnail">
+					{% if user.userprofile.avatar == "" %}
+					<img src="../../static/img/default_avatar.png" class="img-rounded"></img>
+					{% else %}
+					<img src="{{ user.userprofile.avatar }}" class="img-rounded"></img>
+					{% endif %}
+				</a>
+				<center>
+				<a href="/editphoto/" class="btn btn-info"> Edit Photo </a>
+				</center>
+			</div>
+		</ul>
+	</div>
+</div>
+
+{% endblock %}
