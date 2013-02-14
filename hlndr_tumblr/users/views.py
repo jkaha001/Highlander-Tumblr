@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 # from users.models import User
-from users.forms import RegisterForm, LoginForm
+from users.forms import RegisterForm, LoginForm, ImageForm
 from users.models import UserProfile
 
 def profile(request, username):
