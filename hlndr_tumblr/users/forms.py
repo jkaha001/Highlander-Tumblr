@@ -17,6 +17,9 @@ class RegisterForm(forms.Form):
 	gender = forms.ChoiceField(choices=GENDER_CHOICES)
 	interests = forms.CharField(max_length=300, required=False)
 	
+class ImageForm(forms.Form):
+	image = forms.FileField(required=True)
+	
 	
 class LoginForm(forms.Form):
 	username = forms.RegexField(regex=r'^[\w.@+-]+$',
