@@ -144,6 +144,7 @@ INSTALLED_APPS = (
 	'dashboard',
 	'blog',
 	'following',
+	'utils',
 	'storages',
 	'taggit',
 )
