@@ -1,4 +1,4 @@
-# Create your views here.
+#Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader, RequestContext
 from django.utils import timezone
@@ -61,9 +61,9 @@ def editProfilePhoto(request):
 			return HttpResponseRedirect("%s/profile" % userName)
 	else:
 		form = ImageForm()
-		return render_to_response("users/editprofile.html",
-								  {'users':request.user,'form':form},
-								  context_instance=RequestContext(request))
+	return render_to_response("users/editprofile.html",
+							  {'users':request.user,'form':form},
+							  context_instance=RequestContext(request))
 
 # registration page
 def register(request):
