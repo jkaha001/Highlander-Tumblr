@@ -16,11 +16,18 @@
 {% block breadcrumbs %}
 {% endblock %}
 
+{% block dash_head %} Following {{ count }} People {% endblock %}
+
 {% block dashboard_content %}
 		<div class="span12">
 		<div></div>
 			{% for follower in follower_list %}
-			<div class="well span2" id="follower">
+			<div class="well span3" id="follower">
+				{% if follower.avatar == "" %}
+				<img src="../../static/img/default_avatar.png" style="height:40px; width:40px;"></img>
+				{% else %}
+				<img src="{{ follower.avatar }}" style="height:40px; width:40px;"></img>
+				{% endif %}
        <a href="/{{ follower.user }}/"><strong>{{ follower.user }}</strong></a>
 			</div>
 			{% endfor %}
