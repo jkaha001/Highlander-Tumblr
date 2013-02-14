@@ -54,7 +54,7 @@ def editProfilePhoto(request):
 			file = request.FILES['image']
 			#we may want to add an id field here to prevent user from accidently overriding
 			filePath = "%s/ProfilePhote/%s/" % (request.user.username, file.name)
-			upload_to_s3(file, filePath);
+			s3_thread(file, filePath)
 			request.user.userprofile.avatar = amazon_url + filePath
 			request.user.userprofile.save()
 			userName = request.user.username
@@ -62,8 +62,8 @@ def editProfilePhoto(request):
 	else:
 		form = ImageForm()
 		return render_to_response("users/editprofile.html",
-									{'users':request.user,'form':form},
-									context_instance=RequestContext(request))
+								  {'users':request.user,'form':form},
+								  context_instance=RequestContext(request))
 
 # registration page
 def register(request):
