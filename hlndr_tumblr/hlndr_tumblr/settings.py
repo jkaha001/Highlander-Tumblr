@@ -1,10 +1,13 @@
 # Django settings for hlndr_tumblr project.
 import os
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+AWS_SECRET_ACCESS_KEY = '3QsNBSSo50nS9VIRR80YPQSRsHVinIMR5wyu/46f'
+AWS_ACCESS_KEY_ID = 'AKIAICJX7H77KKGXZOHA'
+AWS_STORAGE_BUCKET_NAME = 'highlander-tumblr-test-bucket'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
@@ -17,27 +20,15 @@ MANAGERS = ADMINS
 project_dir = os.path.dirname( os.path.abspath('__file__') )
 
 DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-		'NAME': os.path.join(project_dir,"hlndr_tumblr.db"),                      # Or path to database file if using sqlite3.
-		'USER': '',                      # Not used with sqlite3.
-		'PASSWORD': '',                  # Not used with sqlite3.
-		'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-		'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-	}
-}
-"""
-DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-		'NAME': 'd8cmtbjk90pqvb',                      # Or path to database file if using sqlite3.
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'd8cmtbjk90pqvb',                      # Or path to database file if using sqlite3.
 		'USER': 'ailmervfaempjg',                      # Not used with sqlite3.
-		'PASSWORD': '',                  # Not used with sqlite3.
-		'HOST': 'ec2-54-243-243-217.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
-		'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
-	}
+        'PASSWORD': 'C7rekRJfdcHudLp999M6efXvn2',                  # Not used with sqlite3.
+        'HOST': 'ec2-54-243-243-217.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
+    }
 }
-"""
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -144,6 +135,7 @@ INSTALLED_APPS = (
 	'dashboard',
 	'blog',
 	'following',
+	'utils',
 	'storages',
 	'taggit',
 )

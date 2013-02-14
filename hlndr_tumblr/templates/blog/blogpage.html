@@ -107,7 +107,11 @@
 			<ul class="thumbnails">
 				<li class="span" style="padding:20px 20px 0px;">
 					<a href="/{{ author.username }}/profile/" class="thumbnail">
+						{% if author.userprofile.avatar == "" %}
 						<img src="../../static/img/default_avatar.png" class="img-rounded"></img>
+						{% else %}
+						<img src="{{ user.userprofile.avatar }}" class="img-rounded"></img>
+						{% endif %}
 					</a>
 				</li>
 				<li class="span" style="padding:0px 20px;">	

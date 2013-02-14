@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ user.username }} &middot; Highlandr {% endblock %}
+
+{% block extra_css %}
+<style type="text/css">
+#page-container{
+	background-color:#2A4480;
+}
+
+#profileblock {
+	background-color:#35C0CD;
+	padding: 50px 50px;
+	margin: 20px auto 0px;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container span8">
+	<div class="row-fluid span12" style="min-height: 100%; margin:auto auto;">
+		<div class="well container-fluid span8" style="background-color:#e7dd68;">
+			<form action="/editphoto/" method="POST" enctype="multipart/form-data" class="form-horizontal">
+				{% csrf_token %}
+				<h3> Profile Image (200 x 200): </h3>
+				{{ form.image }}
+				<button type="submit" class="btn btn-inverse btn-block-level"> Upload </button>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
