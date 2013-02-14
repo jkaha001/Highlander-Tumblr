@@ -21,10 +21,13 @@
 
 <div class="container span8">
 	<div class="row-fluid span12" style="min-height: 100%; margin:auto auto;">
-		<form action="/editphoto/" method="POST" enctype="multipart/form-data" class="form-horizontal">
-			{{ form.image }}
-			<button type="submit" class="btn btn-submit btn-block-level"> Post </button>
-		</form>
+		<div class="well container-fluid span8" style="background-color:#e7dd68;">
+			<form action="/editphoto/" method="POST" enctype="multipart/form-data" class="form-horizontal">
+				<h3> Profile Image (200 x 200): </h3>
+				{{ form.image }}
+				<button type="submit" class="btn btn-inverse btn-block-level"> Upload </button>
+			</form>
+		</div>
 	</div>
 </div>
 
