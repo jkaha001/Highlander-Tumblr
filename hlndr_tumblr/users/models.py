@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
+#from friends.models import Friendship
+
 # Create your models here.
 class UserProfile(models.Model):
 	def __unicode__(self):
@@ -18,7 +20,8 @@ class UserProfile(models.Model):
     
     #following logic
 	following = models.ManyToManyField('UserProfile', related_name="list_following")
-    
+   #	friends = models.ManyToManyField('Friendship.friends', related_name="list_friends")
+
 	# URL to avatar image hosted
 	avatar = models.URLField()
 	nickname = models.CharField(max_length=50, blank=True)
