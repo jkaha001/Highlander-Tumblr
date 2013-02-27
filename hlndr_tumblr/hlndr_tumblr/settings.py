@@ -21,7 +21,7 @@ project_dir = os.path.dirname( os.path.abspath('__file__') )
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'd8cmtbjk90pqvb',                      # Or path to database file if using sqlite3.
 		'USER': 'ailmervfaempjg',                      # Not used with sqlite3.
         'PASSWORD': 'C7rekRJfdcHudLp999M6efXvn2',                  # Not used with sqlite3.
@@ -134,6 +134,7 @@ INSTALLED_APPS = (
 	'users',
 	'dashboard',
 	'blog',
+	'friends',
 	'following',
 	'utils',
 	'storages',

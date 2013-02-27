@@ -29,4 +29,6 @@ urlpatterns = patterns('',
 	url(r'^(?P<username>\w+)/$', 'blog.views.blogpage', name='blogpage'),
 	url(r'^(?P<username>\w+)/posts/$', 'dashboard.views.viewposts', name='viewposts'),
 	url(r'^(?P<username>\w+)/profile/$', 'users.views.profile', name='profile'),
+	#Friends page, yet to have an actual html page
+	#url(r'^(?P<username>\w+)/friends/$', 'friend_page', name='friend_page'),
 )
